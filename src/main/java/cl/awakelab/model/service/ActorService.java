@@ -30,6 +30,5 @@ public class ActorService {
 		actorDAO.delete(id);
 	}
 	
-	
 
 }

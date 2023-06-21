@@ -15,7 +15,21 @@ public class ActorDAO implements IActorDAO {
 
 	@Override
 	public void create(Actor a) {
-		// TODO Auto-generated method stub
+		
+		String sql = "insert into actor (first_name, last_name) values ('" + a.getFirstName() + "', '" + a.getLastName() + "')";
+		try {
+			
+			Connection cnn = Conexion.getConexion();
+			Statement st = cnn.createStatement();
+			st.execute(sql);			
+			
+			
+		} catch (SQLException e) {
+			System.out.println("Error en método create");
+			e.printStackTrace();
+		}
+		
+		
 		
 	}
 
@@ -52,13 +66,51 @@ public class ActorDAO implements IActorDAO {
 
 	@Override
 	public Actor read(int id) {
-		// TODO Auto-generated method stub
-		return null;
+
+		Actor actor = null;
+		
+		try {
+			
+			Connection conn = Conexion.getConexion();
+			Statement statement = conn.createStatement();
+			String sql = "select actor_id, first_name, last_name from actor where actor_id = " + id;
+			
+			ResultSet rs = statement.executeQuery(sql);
+			
+			while (rs.next()) {
+				actor = new Actor(
+						rs.getInt("actor_id"), 
+						rs.getString("first_name"), 
+						rs.getString("last_name")
+						);
+			}			
+			
+		} catch (SQLException e) {
+			System.out.println("Error en el método read(id)");
+			e.printStackTrace();
+		}
+		
+		return actor;
 	}
 
 	@Override
 	public void update(Actor a) {
-		// TODO Auto-generated method stub
+		
+		String sql = "update actor set first_name = '" + a.getFirstName() + "', last_name = '" + a.getLastName() + "' where actor_id = " + a.getActorId();
+		
+		try {
+			
+			Connection conn = Conexion.getConexion();
+			Statement statement = conn.createStatement();
+			System.out.println(sql);
+			statement.execute(sql);
+			
+			
+		} catch (SQLException e) {
+			System.out.println("Erorr en método update");
+			e.printStackTrace();
+		}
+		
 		
 	}
 

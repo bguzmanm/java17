@@ -19,6 +19,10 @@
 <body>
 	<div class="container">
 		<h1>Listado de Actores y Actrices</h1>
+		<div class="mb-3">
+			<a class="btn btn-secondary" href="${pageContext.request.contextPath}/actor?op=new">Crear Actor/Actriz</a>
+		</div>
+		
 		<table class="table" id="table_actors">
 			<thead class="table-dark">
 				<tr>
@@ -31,7 +35,10 @@
 			<tbody>
 				<c:forEach var="a" items="${actors}">
 					<tr>
-						<td><c:out value="${a.getActorId()}"></c:out></td>
+						<td>
+							<a href="${pageContext.request.contextPath}/actor?id=${a.getActorId()}">
+							<c:out value="${a.getActorId()}"></c:out></a>
+						</td>
 						<td><c:out value="${a.getFirstName()}"></c:out></td>
 						<td><c:out value="${a.getLastName()}"></c:out></td>
 						<td></td>

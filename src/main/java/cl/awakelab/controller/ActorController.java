@@ -1,8 +1,6 @@
 package cl.awakelab.controller;
 
 import java.io.IOException;
-import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,13 +10,12 @@ import javax.servlet.http.HttpServletResponse;
 import cl.awakelab.model.dto.Actor;
 import cl.awakelab.model.service.ActorService;
 
-
 @WebServlet("/actor")
 public class ActorController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	
-	ActorService as = new ActorService();
+	private ActorService as = new ActorService();
 	
     public ActorController() {
         super();
@@ -26,16 +23,52 @@ public class ActorController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		List<Actor> actors = as.findAll();
-		request.setAttribute("actors", actors);
+		String strId = request.getParameter("id");
+		int id = 0;
+		if (strId != null) {
+			id = Integer.parseInt(strId);
+		}
 		
-		getServletContext().getRequestDispatcher("/views/actors.jsp").forward(request, response);
-		
+		if (id > 0) {
+			Actor actor = as.findOne(id);			
+			request.setAttribute("actor", actor);
+			getServletContext().getRequestDispatcher("/views/actor.jsp").forward(request, response);			
+		} else {
+			String op = request.getParameter("op");
+			if (op.equals("new")) {
+				getServletContext().getRequestDispatcher("/views/actor.jsp").forward(request, response);
+			} else {
+			
+			//	response.sendRedirect(request.getContextPath() + "/actors");
+			}
+			//getServletContext().getRequestDispatcher("/views/actors.jsp").forward(request, response);
+		}
 		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
+
+		String nombre = request.getParameter("nombre");
+		String apellido = request.getParameter("apellido");
+		String strId = request.getParameter("id");
+		
+		if (!strId.isEmpty()) {
+			int id = Integer.parseInt(strId);
+			
+			Actor actor = new Actor(id, nombre, apellido);
+			as.update(actor);
+			
+		} else {
+			Actor actor = new Actor();
+			actor.setFirstName(nombre);
+			actor.setLastName(apellido);
+			
+			as.create(actor);
+			
+		}
+		
+		response.sendRedirect(request.getContextPath() + "/actors");
+		
 	}
 
 }
