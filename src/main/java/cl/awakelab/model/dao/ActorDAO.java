@@ -102,6 +102,7 @@ public class ActorDAO implements IActorDAO {
 			
 			Connection conn = Conexion.getConexion();
 			Statement statement = conn.createStatement();
+			
 			System.out.println(sql);
 			statement.execute(sql);
 			
@@ -116,7 +117,17 @@ public class ActorDAO implements IActorDAO {
 
 	@Override
 	public void delete(int id) {
-		// TODO Auto-generated method stub
+		String sql = "delete from actor where actor_id = " + id;
+		try {
+		
+			Connection conn = Conexion.getConexion();
+			Statement st = conn.createStatement();
+			st.execute(sql);
+			
+		} catch (SQLException e) {
+			System.out.println("Error en método delete");
+			e.printStackTrace();
+		}
 		
 	}
 

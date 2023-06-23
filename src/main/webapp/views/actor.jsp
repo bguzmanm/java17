@@ -23,13 +23,27 @@
 			<input type="hidden" name="id" id="id" value="${actor.getActorId()}">
 			<div class="mb-3">
 				<label for="nombre" class="form-label">Nombre:</label>
-				<input type="text" class="form-control" name="nombre" id="nombre" placeholder="Pedro" value="${actor.getFirstName()}">
+				<c:if test="${op.equals('read')}">
+					<input type="text" class="form-control" name="nombre" id="nombre" placeholder="Pedro" value="${actor.getFirstName()}" disabled>
+				</c:if>
+				<c:if test="${op.equals('edit') || op.equals('new')}">
+					<input type="text" class="form-control" name="nombre" id="nombre" placeholder="Pedro" value="${actor.getFirstName()}">
+				</c:if>
+				
 			</div>
 			<div class="mb-3">
 				<label for="apellido" class="form-label">Apellido:</label>
-				<input type="text" class="form-control" name="apellido" id="apellido" placeholder="Pascal" value="${actor.getLastName()}">
+				<c:if test="${op.equals('read')}">
+					<input type="text" class="form-control" name="apellido" id="apellido" placeholder="Pascal" value="${actor.getLastName()}" disabled>
+				</c:if>
+				<c:if test="${op.equals('edit') || op.equals('new')}">
+					<input type="text" class="form-control" name="apellido" id="apellido" placeholder="Pascal" value="${actor.getLastName()}">
+				</c:if>
 			</div>
-			<button class="btn btn-primary" type="submit">Guardar</button>
+			<a href="${pageContext.request.contextPath}/actors" class="btn btn-info">Volver</a>
+			<c:if test="${op.equals('edit') || op.equals('new')}">
+				<button class="btn btn-primary" type="submit">Guardar</button>
+			</c:if>
 		</form>
 	</div>
 

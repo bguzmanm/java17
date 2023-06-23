@@ -6,7 +6,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-	<title>Actores y Actrices</title>
+	<title>Películas</title>
 	<link
 		href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
 		rel="stylesheet"
@@ -19,33 +19,37 @@
 </head>
 <body>
 	<div class="container">
-		<h1>Listado de Actores y Actrices</h1>
-		<div class="mb-3">
-			<a class="btn btn-secondary" href="${pageContext.request.contextPath}/actor?op=new">Crear Actor/Actriz</a>
-		</div>
-		
-		<table class="table" id="table_actors">
+		<h1>Listado de Películas</h1>
+		<table class="table" id="table_films">
 			<thead class="table-dark">
 				<tr>
 					<th>Id</th>
-					<th>Nombre</th>
-					<th>Apellido</th>
+					<th>Titulo</th>
+					<th>Descripción</th>
+					<th>Lanzamiento</th>
+					<th>Duración</th>
+					<th>Censura</th>
+					<th>Características</th>
 					<th>Acciones</th>
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach var="a" items="${actors}">
+				<c:forEach var="film" items="${films}">
 					<tr>
 						<td>
-							<c:out value="${a.getActorId()}"></c:out>
+							<c:out value="${film.getFilmId()}"></c:out>
 						</td>
-						<td><c:out value="${a.getFirstName()}"></c:out></td>
-						<td><c:out value="${a.getLastName()}"></c:out></td>
+						<td><c:out value="${film.getTitle()}"></c:out></td>
+						<td><c:out value="${film.getDescription()}"></c:out></td>
+						<td><c:out value="${film.getYear()}"></c:out></td>
+						<td><c:out value="${film.getLength()}"></c:out></td>
+						<td><c:out value="${film.getRating()}"></c:out></td>
+						<td><c:out value="${film.getSpecialFeatures()}"></c:out></td>
 						<td>
-						<a href="${pageContext.request.contextPath}/actor?id=${a.getActorId()}&op=read"><i class="fa-solid fa-eye"></i></a>
-						<a href="${pageContext.request.contextPath}/actor?id=${a.getActorId()}&op=edit"><i class="fa-solid fa-pen-to-square"></i></a>
+							<a href="${pageContext.request.contextPath}/film?id=${film.getFilmId()}&op=read"><i class="fa-solid fa-eye"></i></a>
+					<%-- 		<a href="${pageContext.request.contextPath}/actor?id=${a.getActorId()}&op=edit"><i class="fa-solid fa-pen-to-square"></i></a>
 						<a href="${pageContext.request.contextPath}/actor?id=${a.getActorId()}&op=delete"><i class="fa-solid fa-trash"></i></a>
-						<a href="${pageContext.request.contextPath}/films?actorId=${a.getActorId()}"><i class="fa-solid fa-film"></i></a>
+						<a href="${pageContext.request.contextPath}/films?actorId=${a.getActorId()}"><i class="fa-solid fa-film"></i></a> --%>
 						
 						</td>
 					</tr> 
@@ -65,9 +69,8 @@
 		
 		<script>
 			$(document).ready( function () {
-		    	$('#table_actors').DataTable();
+		    	$('#table_films').DataTable();
 			});
 		</script>
-		
 </body>
 </html>

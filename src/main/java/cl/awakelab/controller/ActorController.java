@@ -29,12 +29,47 @@ public class ActorController extends HttpServlet {
 			id = Integer.parseInt(strId);
 		}
 		
+		String op = request.getParameter("op");
+		request.setAttribute("op", op);
+		
+		switch (op) {
+			case "new": {
+				getServletContext().getRequestDispatcher("/views/actor.jsp").forward(request, response);
+				break;
+			}
+			case "edit": {
+				if (id > 0) {
+					Actor actor = as.findOne(id);			
+					request.setAttribute("actor", actor);	
+					getServletContext().getRequestDispatcher("/views/actor.jsp").forward(request, response);			
+				}
+				break;
+			}
+			case "read": {
+				if (id > 0) {
+					Actor actor = as.findOne(id);			
+					request.setAttribute("actor", actor);	
+					getServletContext().getRequestDispatcher("/views/actor.jsp").forward(request, response);			
+				}
+			}
+			case "delete": {
+				if (id > 0) {
+					
+					as.delete(id);
+					response.sendRedirect(request.getContextPath() + "/actors");		
+								
+				}
+			}
+		
+		}
+		
+		/*
+		
 		if (id > 0) {
 			Actor actor = as.findOne(id);			
-			request.setAttribute("actor", actor);
+			request.setAttribute("actor", actor);	
 			getServletContext().getRequestDispatcher("/views/actor.jsp").forward(request, response);			
-		} else {
-			String op = request.getParameter("op");
+		} else {			
 			if (op.equals("new")) {
 				getServletContext().getRequestDispatcher("/views/actor.jsp").forward(request, response);
 			} else {
@@ -43,6 +78,8 @@ public class ActorController extends HttpServlet {
 			}
 			//getServletContext().getRequestDispatcher("/views/actors.jsp").forward(request, response);
 		}
+		
+		*/
 		
 	}
 
