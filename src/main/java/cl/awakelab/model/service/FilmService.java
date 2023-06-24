@@ -19,4 +19,8 @@ public class FilmService {
 		return filmDAO.read(id);
 	}
 	
+	public List<Film> findAll(){
+		return filmDAO.read();
+	}
+	
 }

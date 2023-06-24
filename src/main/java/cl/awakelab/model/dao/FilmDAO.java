@@ -30,21 +30,7 @@ public class FilmDAO implements IFilmDAO {
 			ResultSet rs = statement.executeQuery(sql);
 			
 			while (rs.next()) {
-				
-				lista.add(new Film(
-						rs.getInt("film_id"),
-						rs.getString("title"),
-						rs.getString("description"),
-						rs.getInt("release_year"),
-						rs.getInt("language_id"),
-						rs.getInt("original_language_id"),
-						rs.getInt("rental_duration"),
-						rs.getFloat("rental_rate"),
-						rs.getInt("length"),
-						rs.getFloat("replacement_cost"),
-						rs.getString("rating"),
-						rs.getString("special_features")						
-						));
+				lista.add(mappingFilm(rs));
 			}
 			
 		} catch (SQLException e) {
@@ -71,20 +57,7 @@ public class FilmDAO implements IFilmDAO {
 			ResultSet rs = statement.executeQuery(sql);
 			
 			while (rs.next()) {
-				film = new Film(
-						rs.getInt("film_id"),
-						rs.getString("title"),
-						rs.getString("description"),
-						rs.getInt("release_year"),
-						rs.getInt("language_id"),
-						rs.getInt("original_language_id"),
-						rs.getInt("rental_duration"),
-						rs.getFloat("rental_rate"),
-						rs.getInt("length"),
-						rs.getFloat("replacement_cost"),
-						rs.getString("rating"),
-						rs.getString("special_features")
-						);
+				film = mappingFilm(rs);
 			}			
 			
 		} catch (SQLException e) {
@@ -94,6 +67,53 @@ public class FilmDAO implements IFilmDAO {
 		
 		return film;
 		
+	}
+
+	@Override
+	public List<Film> read() {
+
+		List<Film> lista = new ArrayList<Film>();
+		
+		String sql = "select film_id, title, description, release_year, language_id, original_language_id, "
+				+ "rental_duration, rental_rate, length, replacement_cost, rating, special_features "
+				+ "from film";
+		
+		try {
+			Connection conn = Conexion.getConexion();
+			Statement statement = conn.createStatement();
+			ResultSet rs = statement.executeQuery(sql);
+			
+			while (rs.next()) {
+				lista.add(mappingFilm(rs));
+			}
+			
+			
+		} catch (SQLException e) {
+			System.out.println("Error en el método read()");
+			e.printStackTrace();
+		}
+		
+		return lista;
+	}
+	
+	private Film mappingFilm(ResultSet rs) throws SQLException {
+		
+		Film film = new Film(
+					rs.getInt("film_id"),
+					rs.getString("title"),
+					rs.getString("description"),
+					rs.getInt("release_year"),
+					rs.getInt("language_id"),
+					rs.getInt("original_language_id"),
+					rs.getInt("rental_duration"),
+					rs.getFloat("rental_rate"),
+					rs.getInt("length"),
+					rs.getFloat("replacement_cost"),
+					rs.getString("rating"),
+					rs.getString("special_features")
+					);
+		
+		return film;
 	}
 
 }

@@ -19,6 +19,7 @@
 </head>
 <body>
 	<div class="container">
+		<jsp:include page="./nav.jsp"></jsp:include>
 		<h1>Listado de Películas</h1>
 		<table class="table" id="table_films">
 			<thead class="table-dark">

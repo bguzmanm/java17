@@ -27,8 +27,14 @@ public class FilmsController extends HttpServlet {
 		if (strActorId != null) {
 			actorId = Integer.parseInt(strActorId);
 		}
-				
-		request.setAttribute("films", filmService.findByActorId(actorId));
+		
+		if (actorId>0) {
+			request.setAttribute("films", filmService.findByActorId(actorId));	
+		} else {
+			request.setAttribute("films", filmService.findAll());
+		}
+			
+		
 		getServletContext().getRequestDispatcher("/views/films.jsp").forward(request, response);
 		
 	}

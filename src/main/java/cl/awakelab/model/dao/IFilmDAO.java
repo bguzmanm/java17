@@ -8,5 +8,6 @@ public interface IFilmDAO {
 	
 	public List<Film> findByActorId(int id);
 	public Film read(int id);
+	public List<Film> read();
 
 }

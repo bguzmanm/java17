@@ -19,6 +19,7 @@
 </head>
 <body>
 	<div class="container">
+		<jsp:include page="./nav.jsp"></jsp:include>
 		<h1>Listado de Actores y Actrices</h1>
 		<div class="mb-3">
 			<a class="btn btn-secondary" href="${pageContext.request.contextPath}/actor?op=new">Crear Actor/Actriz</a>

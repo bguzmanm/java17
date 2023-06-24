@@ -17,6 +17,7 @@
 <body>
 
 	<div class="container">
+	<jsp:include page="./nav.jsp"></jsp:include>
 		<h1>Detalle de Película</h1>
 		
 		<form class="form" action="${pageContext.request.contextPath}/film" method="POST">
